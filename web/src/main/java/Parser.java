@@ -17,11 +17,17 @@ public class Parser {
 
     private List<String> dataList;
 
+    private String saveDir;
+
+    final String FILE_NAME = "ufo.csv";
+
+    final String DIR_NAME = "saved-data";
+
     public Parser(){
         pageList = new ArrayList<>();
         dataList = new ArrayList<>();
+        saveDir =  System.getProperty("user.home") + File.separator + DIR_NAME ;
     }
-
 
     public void parseTargetUrl() throws IOException {
 
@@ -87,13 +93,18 @@ public class Parser {
                 "posted"
         };
 
-        File file = new File("C:\\Users\\joe\\Desktop\\obj\\ufo.csv");
+        File dirToBeCreated = new File(saveDir);
+        if(dirToBeCreated.mkdir()){
+            System.out.println("created directory " + saveDir);
+        }
+
+        File file = new File(saveDir + File.separator + FILE_NAME);
         
         if(file.createNewFile()){
-            System.out.println("Created new file");
+            System.out.println("Created " + FILE_NAME);
         }
         else {
-            System.out.println("File already exists");
+            System.out.println(FILE_NAME +  " already exists");
         }
 
         System.out.println("Saving data to file");
@@ -117,5 +128,8 @@ public class Parser {
             bw.write("\n" + row);
         }
         bw.close();
+
+        System.out.println("The data has been saved in " + file.getAbsolutePath());
     }
+
 }

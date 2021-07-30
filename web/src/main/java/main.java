@@ -7,7 +7,5 @@ public class main {
         parser.parseTargetUrl();
         parser.parseRows();
         parser.writeCsv();
-
-
     }
 }
